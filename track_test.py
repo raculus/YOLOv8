@@ -30,7 +30,7 @@ def calculate_length(points):
 
 
 # Load YOLOv8 model
-model = YOLO("yolov8n.pt")
+model = YOLO("car-cctv-6.pt")
 video_path = "video.mp4"
 cap = cv2.VideoCapture(video_path)
 
@@ -102,11 +102,42 @@ while cap.isOpened():
                                 car_count_down += 1
                             elif dy < 0:  # up
                                 car_count_up += 1
-        print("<Car count>", end=" ")
-        print("Up: ", car_count_up, end=" ")
-        print("Down:    ", car_count_down, end=" ")
-        print("Left:    ", car_count_left, end=" ")
-        print("Right:   ", car_count_right)
+        cv2.putText(
+            annotated_frame,
+            f"Up: {car_count_up}",
+            (10, 50),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
+        cv2.putText(
+            annotated_frame,
+            f"Down: {car_count_down}",
+            (200, 50),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
+        cv2.putText(
+            annotated_frame,
+            f"Left: {car_count_left}",
+            (10, 100),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
+        cv2.putText(
+            annotated_frame,
+            f"Right: {car_count_right}",
+            (200, 100),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
 
         # 창에 표시
         cv2.imshow("YOLOv8 Tracking", annotated_frame)
